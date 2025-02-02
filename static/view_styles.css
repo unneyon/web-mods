@@ -1,0 +1,45 @@
+/*
+This file is an edited part of https://github.com/hikariatama/ftg-mods-web repo
+Author of original: github.com/hikariatama (t.me/hikariatama)
+*/
+
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+pre[class*=language-] {
+    margin: 0;
+    padding-bottom: 32px;
+    background: #303841;
+    line-height: 1.1;
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+}
+
+code[class*=language-] {
+    font-size: 13px;
+}
+
+.title {
+    border: 1px solid rgba(150, 150, 150, .1);
+    border-radius: 15px;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 0 15px 0;
+    user-select: none;
+    cursor: pointer;
+}
+
+::-webkit-scrollbar{width:8px; background: #303841; height: 0;}
+::-webkit-scrollbar-track{background:#444b53;border-radius: 3px;}
+::-webkit-scrollbar-button{display: none;}
+::-webkit-scrollbar-corner{background: #303841}
+::-webkit-scrollbar-thumb{background:#696f75;border-radius: 3px;}
+
+.line-numbers .line-numbers-rows {
+    border-right: none!important;
+}

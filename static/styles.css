@@ -1,0 +1,213 @@
+/*
+This file is an edited part of https://github.com/hikariatama/ftg-mods-web repo
+Author of original: github.com/hikariatama (t.me/hikariatama)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Consolas&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans');
+* {
+    box-sizing: border-box;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #303841;
+    font-family: Consolas,Monaco,'Andale Mono',monospace;
+    font-size: 16px;
+    padding: 50px;
+}
+
+.mods {
+    text-align: center;
+}
+
+.mod {
+    border: 1px solid rgba(150, 150, 150, .1);
+    border-radius: 10px;
+    padding: 5px 10px;
+    display: inline-block;
+    margin: 5px 5px;
+    user-select: none;
+    cursor: pointer;
+    transition: all .3s ease;
+    background: rgba(48, 56, 65, .8);
+    position: relative;
+    color: #ccc;
+    font-size: 13px;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.title {
+    font-size: 16px;
+    color: #a9b7c6;
+    text-decoration: none;
+}
+
+.icon {
+    height: 22px;
+    margin: 0 5px;
+    animation: fadein .15s ease-out forwards;
+    opacity: 0;
+}
+
+::-webkit-scrollbar{width:8px; background: #303841; height: 8px;}
+::-webkit-scrollbar-track{background:#444b53;border-radius: 3px;}
+::-webkit-scrollbar-button{display: none;}
+::-webkit-scrollbar-corner{background: #303841}
+::-webkit-scrollbar-thumb{background:#696f75;border-radius: 3px;}
+
+@media screen and (max-width: 736px) {
+    body {
+        padding: 20px;
+    }
+
+    .title {
+        font-size: 14px;
+    }
+
+    .icon {
+        height: 24px;
+    }
+}
+
+.hidden:before {
+    z-index: 100;
+    content: '';
+    display: block;
+    width: 100%;
+    height: 30px;
+    position: absolute;
+    background: rgba(0, 0, 0, .4);
+    padding: 100px;
+    margin-top: -50px;
+    margin-left: -50px;
+    /*animation: fadeout .15s ease-out forwards;*/
+}
+
+.hidden {
+    overflow: hidden;
+}
+
+.selected {
+    border: 2px solid #efefef;
+}
+
+.search {
+    width: 100%;
+    height: 100%;
+    border: none;
+    margin: 0;
+    padding: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    font-size: 64px;
+    opacity: .3;
+    text-transform: uppercase;
+    background: transparent;
+    text-align: center;
+    color: #fff;
+    font-family: 'Josefin Sans';
+    cursor: default;
+}
+
+.mod:before {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    position: absolute;
+    margin-left: -10px;
+    margin-top: -10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+}
+
+.invisible {
+    animation: fadeout .15s ease-out forwards;
+}
+
+.mod_window {
+    /*min-height: 150px;*/
+    /*padding: 10px;*/
+    width: 300px;
+    border: 1px solid rgba(150, 150, 150, .1);
+    background: rgba(40, 48, 57, 1);
+    left: 0;
+    top: 0;
+    position: absolute;
+    border-radius: 15px;
+    display: none;
+    transition: margin .3s ease;
+    z-index: 100;
+}
+
+.mod_description {
+    color: #ccc;
+    padding: 10px;
+    text-align: center;
+    font-family: Consolas;
+    user-select: none;
+    font-size: 15px;
+}
+
+.inline {
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid rgba(150, 150, 150, .1);
+    border-radius: 15px;
+    display: inline-block;
+    padding: 10px 15px;
+    margin: 0 0 15px 0;
+    color: #fff;
+    transition: all .2s ease;
+}
+
+.inline:hover {
+    border: 1px solid rgba(120, 120, 120, .1);
+    background: rgba(0, 0, 0, .1);
+}
+
+.commands {
+    font-size: 14px;
+    color: #ddd;
+}
+
+hr {
+    width: 80%;
+    outline: none;
+    border: none;
+    height: 1px;
+    background: #444;
+
+}

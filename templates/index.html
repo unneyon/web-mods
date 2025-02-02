@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--
+This file is an edited part of https://github.com/hikariatama/ftg-mods-web repo
+Author of original: github.com/hikariatama (t.me/hikariatama)
+-->
+<html>
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="{{ site_icon }}" />
+    <meta name="title" content="{{ sitename }}">
+    <meta name="description" content="{{ description }}">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ url }}">
+    <meta property="og:title" content="{{ sitename }}">
+    <meta property="og:description" content="{{ description }}">
+    <meta property="og:image" content="{{ site_icon }}">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="{{ url }}/">
+    <meta property="twitter:title" content="{{ sitename }}">
+    <meta property="twitter:description" content="{{ description }}">
+    <meta property="twitter:image" content="{{ site_icon }}">
+
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ sitename }}</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+
+<body>
+    <input type="text" class="search" onkeyup="search()">
+    <div class="mods">
+
+        <span>
+            
+        </span>
+
+        <div class="mod_window">
+            <div class="mod_description"></div>
+            <div class="inline inline_install">📥 Install</div>
+            <div class="inline inline_open">👀 Show code</div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        const delay = .05;
+        var mods = {{mods|tojson}};
+        for(var i = 0; i < mods.length; i++) {
+            var mod = mods[i];
+            let file = mod['link'].split('/');
+            file = file[file.length - 1];
+            let random = (Math.random() * (-.4) + .7).toFixed(3);
+            document.querySelector('.mods span').innerHTML += '<div class="mod" id="m' + i.toString() + '" name="' + mod['name'] + '"><div class="flex"><img class="icon" src="' + mod['pic'] + '"<a class="title" href="view/' + file + '" target="_blank">' + mod['name'] + '</a></div></div>';
+            $("#m" + i.toString()).hide();
+        }
+        setTimeout(() => {
+            for(var i = 0; i < mods.length; i++) {
+                $("#m" + i.toString()).fadeIn(500);
+            }
+        }, 1000);
+
+        $(".mod_window").hide();
+        
+        const h = window.innerHeight;
+
+        var mod_e = document.querySelectorAll('.mod');
+        for(var i = 0; i < mod_e.length; i++) {
+            var mod = mod_e[i];
+            mod.onmouseover = (e) => {
+                $(".mod_window").fadeIn(50);
+                $(".mod_description").attr('id', e.currentTarget.id);
+                let desc = mods[parseInt($(".mod_description").attr('id').substr(1))];
+                let cmds = "";
+                if(desc['commands'].length > 0) {
+                    cmds = '<br><hr>' + '<span class="commands">' + desc['commands'].join(' ') + '</span>';
+                }
+                $(".mod_description").html(desc['desc'] + cmds);
+
+                let left = e.currentTarget.offsetLeft;
+                if(left + document.querySelector('.mod_window').offsetWidth > window.innerWidth) {
+                    left = window.innerWidth - document.querySelector('.mod_window').offsetWidth - 10;
+                }
+                let top = e.currentTarget.offsetTop + e.currentTarget.offsetHeight + 5;
+                if(top + document.querySelector('.mod_window').offsetHeight > h) {
+                    left += e.currentTarget.offsetWidth + 10;
+                    top = h - document.querySelector('.mod_window').offsetHeight - 10;
+                }
+                $(".mod_window").css({"margin-left": left.toString() + "px", "margin-top": top.toString() + "px"});
+            }
+
+            mod.onmouseout = (e) => {
+                setTimeout(() => {
+                    if($(".mod_window").is(':hover') || document.querySelector('.mod:hover')) {
+                        return
+                    }              
+                    $(".mod_window").fadeOut(50);
+                }, 150);
+            }
+        }
+        document.querySelector('.mod_window').onmouseout = (e) => {
+            setTimeout(() => {
+                if($(".mod_window").is(':hover') || document.querySelector('.mod:hover')) {
+                    return
+                }              
+                $(".mod_window").fadeOut(50);
+            }, 150);
+        }
+        const hearts = ["🎻", "✌️", "🧃", "🪐", "🌻", "💍", "🏖", "💕"];
+        document.querySelector('.inline_install').onclick = (e) => {
+            navigator.clipboard.writeText(".dlm https://{{ url | safe }}/" + mods[parseInt($(".mod_description").attr('id').substr(1))]['file']);
+            e.currentTarget.innerHTML = hearts[Math.floor(Math.random() * hearts.length)] + ' Copied';
+            setTimeout(() => {
+                $(".inline_install").html("📥 Install");
+            }, 1000);
+        }
+
+        document.querySelector('.inline_open').onclick = (e) => {
+            window.open("https://{{ url }}/view/" + mods[parseInt($(".mod_description").attr('id').substr(1))]['file'], target="_blank");
+        }
+        setInterval(function() {
+            document.querySelector('input').focus();
+        }, 500);
+
+        function search() {
+            let query = document.querySelector('input').value;
+            let mods = document.querySelectorAll('.mod');
+            for(var i = 0; i < mods.length; i++) {
+                let mod = mods[i];
+                mod.classList.remove('selected');
+                if(!mod.getAttribute('name').toLowerCase().includes(query.toLowerCase())) {
+                    mod.classList.add('hidden');
+                } else {
+                    mod.classList.remove('hidden');
+                    if(query !== "") {
+                        mod.classList.add('selected');
+                    }
+                }
+            }
+
+        }
+    </script>
+</body>
+</html>

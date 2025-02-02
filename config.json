@@ -1,7 +1,7 @@
 {
-	"port": 1113,
-	"url": "mods.hikariatama.ru",
-	"license": "GNU AGPLv3",
-	"disable_git_pull": true,
-	"mods_path": "../my_mods"
+    "sitename": "unneyon. mods",
+    "description": "The best Hikka modules",
+    "url": "mods.unneyon.ru",
+    "port": 16751,
+    "site_icon": "/static/icon.png"
 }
